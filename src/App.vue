@@ -27,5 +27,6 @@ export default {
 body {
   background-color: blanchedalmond;
   text-align: center;
+  color: #001432;
 }
 </style>
