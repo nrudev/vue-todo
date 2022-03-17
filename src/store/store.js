@@ -20,6 +20,11 @@ export const store = new Vuex.Store({
     headerText: 'My TODO',
     todoList: storage.fetch(),
   },
+  getters: {
+    storedTodoItems(state) {
+      return state.todoList;
+    },
+  },
   mutations: {
     addOneTodo(state, newTodo) {
       const obj = { todo: newTodo, isDone: false };
@@ -27,15 +32,15 @@ export const store = new Vuex.Store({
       state.todoList.push(obj);
     },
     removeOneTodo(state, payload) {
-      localStorage.removeItem(payload.key);
+      localStorage.removeItem(payload.todoItem.todo);
       state.todoList.splice(payload.index, 1);
     },
     toggleOneTodo(state, payload) {
       const obj = {
-        todo: payload.key,
-        isDone: !JSON.parse(localStorage.getItem(payload.key)).isDone,
+        todo: payload.todoItem.todo,
+        isDone: !JSON.parse(localStorage.getItem(payload.todoItem.todo)).isDone,
       };
-      localStorage.setItem(payload.key, JSON.stringify(obj));
+      localStorage.setItem(payload.todoItem.todo, JSON.stringify(obj));
       state.todoList[payload.index].isDone =
         !state.todoList[payload.index].isDone;
     },
