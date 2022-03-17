@@ -2,18 +2,18 @@
   <section>
     <ul>
       <li
-        v-for="todoItem in todoList"
+        v-for="(todoItem, index) in propsdata"
         v-bind:key="todoItem.todo"
         v-bind:class="{ textDone: todoItem.isDone }"
       >
         <span
           class="checkBtn"
           v-bind:class="{ checkBtnDone: todoItem.isDone }"
-          @click="toggleItem(todoItem.todo)"
+          @click="toggleItem(todoItem.todo, index)"
           ><i class="fa-solid fa-check"></i
         ></span>
         {{ todoItem.todo }}
-        <span class="removeBtn" @click="removeItem(todoItem.todo)"
+        <span class="removeBtn" @click="removeItem(todoItem.todo, index)"
           ><i class="fa-solid fa-trash-can"></i
         ></span>
       </li>
@@ -23,30 +23,14 @@
 
 <script>
 export default {
-  data() {
-    return {
-      todoList: [],
-    };
-  },
-  created: function () {
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        this.todoList.push(
-          JSON.parse(localStorage.getItem(localStorage.key(i)))
-        );
-      }
-    }
-  },
+  props: ['propsdata'],
   methods: {
-    removeItem(key) {
-      localStorage.removeItem(key);
+    removeItem(key, index) {
+      console.log(index);
+      this.$emit('removeItem', key, index);
     },
-    toggleItem(key) {
-      const obj = {
-        todo: key,
-        isDone: !JSON.parse(localStorage.getItem(key)).isDone,
-      };
-      localStorage.setItem(key, JSON.stringify(obj));
+    toggleItem(key, index) {
+      this.$emit('toggleItem', key, index);
     },
   },
 };
