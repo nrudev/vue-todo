@@ -2,7 +2,7 @@
   <section>
     <transition-group name="list" tag="ul">
       <li
-        v-for="(todoItem, index) in propsdata"
+        v-for="(todoItem, index) in this.$store.state.todoList"
         v-bind:key="todoItem.todo"
         v-bind:class="{ textDone: todoItem.isDone }"
       >
@@ -23,14 +23,12 @@
 
 <script>
 export default {
-  props: ['propsdata'],
   methods: {
     removeItem(key, index) {
-      console.log(index);
-      this.$emit('removeItem', key, index);
+      this.$store.commit('removeOneTodo', { key, index });
     },
     toggleItem(key, index) {
-      this.$emit('toggleItem', key, index);
+      this.$store.commit('toggleOneTodo', { key, index });
     },
   },
 };

@@ -29,7 +29,7 @@ export default {
   methods: {
     addTodo() {
       if (this.newTodo.trim() !== '') {
-        this.$emit('addTodo', this.newTodo);
+        this.$store.commit('addOneTodo', this.newTodo);
       } else {
         this.showModal = true;
       }
