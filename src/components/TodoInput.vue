@@ -12,13 +12,13 @@ export default {
   data() {
     return {
       newTodo: '',
-      keyNum: localStorage.length,
     };
   },
   methods: {
     addTodo() {
       if (this.newTodo !== '') {
-        localStorage.setItem(this.keyNum++, this.newTodo);
+        const obj = { todo: this.newTodo, isDone: false };
+        localStorage.setItem(obj.todo, JSON.stringify(obj));
       }
       this.clearInput();
     },

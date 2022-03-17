@@ -29,6 +29,7 @@ body {
   text-align: center;
   color: #001432;
   font-family: 'Ubuntu', sans-serif;
+  user-select: none;
 }
 .shadow {
   box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.03);
